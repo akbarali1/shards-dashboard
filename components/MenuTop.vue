@@ -6,20 +6,21 @@
         <div class="input-group input-group-seamless ml-3">
           <div class="input-group-prepend">
             <div class="input-group-text">
-              <i class="fas fa-search"></i>
+              <!--              <i class="fas fa-search"></i>-->
             </div>
           </div>
-          <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"></div>
+          <!--          <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search">-->
+        </div>
       </form>
       <ul class="navbar-nav border-left flex-row ">
-        <li class="nav-item border-right dropdown notifications">
-          <a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item border-right dropdown notifications" :class="{show: isActive}">
+          <a class="nav-link nav-link-icon text-center" @click="notification" href="#">
             <div class="nav-link-icon__wrapper">
               <i class="material-icons"></i>
               <span class="badge badge-pill badge-danger">2</span>
             </div>
           </a>
-          <div class="dropdown-menu dropdown-menu-small" aria-labelledby="dropdownMenuLink">
+          <div class="dropdown-menu dropdown-menu-small" :style="isActive ? 'display:block' : null" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" href="#">
               <div class="notification__icon-wrapper">
                 <div class="notification__icon">
@@ -47,12 +48,12 @@
             <a class="dropdown-item notification__all text-center" href="#"> View all Notifications </a>
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" :class="{show: isProfile}" @click="Profile">
           <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
             <img class="user-avatar rounded-circle mr-2" src="~/assets/images/avatars/0.jpg" alt="User Avatar">
             <span class="d-none d-md-inline-block">Sierra Brooks</span>
           </a>
-          <div class="dropdown-menu dropdown-menu-small" style="display: none;">
+          <div class="dropdown-menu dropdown-menu-small" :style="isProfile ? 'display:block;' : 'display: none;'">
             <a class="dropdown-item" href="user-profile-lite.html">
               <i class="material-icons"></i> Profile</a>
             <a class="dropdown-item" href="components-blog-posts.html">
@@ -77,10 +78,24 @@
 
 <script>
 export default {
-  name: "MenuTop"
+  name: "MenuTop",
+  data() {
+    return {
+      success: false,
+      isActive: false,
+      isProfile: false,
+    }
+  },
+  mounted() {
+    // this.$loading.show()
+  },
+  methods: {
+    notification() {
+      this.isActive = !this.isActive;
+    },
+    Profile() {
+      this.isProfile = !this.isProfile;
+    }
+  }
 }
 </script>
-
-<style scoped>
-
-</style>
